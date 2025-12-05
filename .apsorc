@@ -1,0 +1,166 @@
+{
+  "entities": [
+    {
+      "name": "Product",
+      "created_at": false,
+      "updated_at": false,
+      "fields": [
+        {
+          "name": "name",
+          "type": "varchar",
+          "nullable": false
+        },
+        {
+          "name": "description",
+          "type": "text",
+          "nullable": true
+        },
+        {
+          "name": "price",
+          "type": "money",
+          "nullable": false
+        },
+        {
+          "name": "stock_quantity",
+          "type": "integer",
+          "nullable": false
+        },
+        {
+          "name": "status",
+          "type": "varchar",
+          "nullable": false,
+          "default": "active",
+          "values": [
+            "active",
+            "inactive"
+          ]
+        }
+      ],
+      "indexes": [
+        {
+          "fields": [
+            "name"
+          ],
+          "unique": false
+        },
+        {
+          "fields": [
+            "price"
+          ],
+          "unique": false
+        },
+        {
+          "fields": [
+            "status"
+          ],
+          "unique": false
+        }
+      ]
+    },
+    {
+      "name": "Order",
+      "created_at": false,
+      "updated_at": false,
+      "fields": [
+        {
+          "name": "order_date",
+          "type": "timestamp",
+          "nullable": false
+        },
+        {
+          "name": "customer_id",
+          "type": "integer",
+          "nullable": false
+        },
+        {
+          "name": "total_amount",
+          "type": "money",
+          "nullable": false
+        },
+        {
+          "name": "status",
+          "type": "varchar",
+          "nullable": false,
+          "default": "pending",
+          "values": [
+            "pending",
+            "completed"
+          ]
+        }
+      ],
+      "indexes": [
+        {
+          "fields": [
+            "order_date"
+          ],
+          "unique": false
+        },
+        {
+          "fields": [
+            "customer_id"
+          ],
+          "unique": false
+        },
+        {
+          "fields": [
+            "status"
+          ],
+          "unique": false
+        }
+      ]
+    },
+    {
+      "name": "Customer",
+      "created_at": false,
+      "updated_at": false,
+      "fields": [
+        {
+          "name": "first_name",
+          "type": "varchar",
+          "nullable": false
+        },
+        {
+          "name": "last_name",
+          "type": "varchar",
+          "nullable": false
+        },
+        {
+          "name": "email",
+          "type": "varchar",
+          "nullable": false
+        },
+        {
+          "name": "phone_number",
+          "type": "varchar",
+          "nullable": true
+        },
+        {
+          "name": "address",
+          "type": "text",
+          "nullable": true
+        }
+      ],
+      "indexes": [
+        {
+          "fields": [
+            "email"
+          ],
+          "unique": true
+        }
+      ]
+    }
+  ],
+  "relationships": [
+    {
+      "from": "Product",
+      "to": "Order",
+      "type": "OneToMany"
+    },
+    {
+      "from": "Customer",
+      "to": "Order",
+      "type": "ManyToOne"
+    }
+  ],
+  "_removedEntities": []
+}
